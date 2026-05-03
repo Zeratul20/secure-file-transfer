@@ -41,7 +41,7 @@ export async function importAESKey(rawKeyBytes: Uint8Array): Promise<CryptoKey> 
 
     return await window.crypto.subtle.importKey(
         'raw',
-        keyBuffer,
+        new Uint8Array(keyBuffer) as BufferSource,
         { name: 'AES-GCM' },
         false,
         ['encrypt', 'decrypt']
@@ -99,7 +99,7 @@ export async function encryptQKDKeyWithPublicKey(qkdKeyBytes: Uint8Array, public
     const encryptedBuffer = await window.crypto.subtle.encrypt(
         { name: 'AES-GCM', iv },
         key,
-        qkdKeyBytes
+        new Uint8Array(qkdKeyBytes) as BufferSource
     );
 
     const combined = Buffer.concat([
@@ -143,7 +143,7 @@ export async function decryptQKDKey(encryptedQKDKeyBase64: string, privateKeyBas
 export async function deriveMessageKey(masterKey: Uint8Array, salt: Uint8Array): Promise<CryptoKey> {
     const keyMaterial = await window.crypto.subtle.importKey(
         "raw",
-        masterKey,
+        new Uint8Array(masterKey) as BufferSource,
         { name: "HKDF" },
         false,
         ["deriveKey"]
@@ -153,7 +153,7 @@ export async function deriveMessageKey(masterKey: Uint8Array, salt: Uint8Array):
         {
             name: "HKDF",
             hash: "SHA-256",
-            salt: salt,
+            salt: new Uint8Array(salt) as BufferSource,
             info: new TextEncoder().encode("qkd_gateway_message_derivation")
         },
         keyMaterial,

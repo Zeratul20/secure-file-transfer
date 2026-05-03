@@ -87,11 +87,11 @@ export const QuantumService = {
     async sendSecureMedia(senderId: string, receiverId: string, file: File) {
         const { encryptedBlob, mediaKeyBase64, ivBase64 } = await encryptFileLocal(file);
 
-        const fileExt = file.name.split('.').pop();
+        // const fileExt = file.name.split('.').pop();
         const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.enc`;
         const filePath = `${senderId}/${fileName}`;
 
-        const { data: uploadData, error: uploadError } = await supabase.storage
+        const { error: uploadError } = await supabase.storage
             .from('secure_media')
             .upload(filePath, encryptedBlob);
 

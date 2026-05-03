@@ -40,7 +40,7 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
                 if (!currentUserProfile?.pqc_public_key) {
                     let retries = 10;
                     while (retries-- > 0) {
-                        const { data: refreshedProfile, error: refreshedError } = await supabase
+                        const { data: refreshedProfile } = await supabase
                             .from('profiles')
                             .select('id, username, display_name, pqc_public_key')
                             .eq('id', user.id)

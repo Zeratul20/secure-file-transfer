@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { AlertTriangle } from 'lucide-react';
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 interface ErrorBoundaryProps {
     children: ReactNode;
@@ -52,16 +52,6 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
                             <p className="text-xs text-red-800 font-mono break-words">
                                 {this.state.error.message || 'Unknown error'}
                             </p>
-                            {process.env.NODE_ENV === 'development' && (
-                                <details className="mt-2">
-                                    <summary className="cursor-pointer text-xs text-red-600 hover:text-red-700">
-                                        Stack trace
-                                    </summary>
-                                    <pre className="mt-2 text-[10px] text-red-700 overflow-auto max-h-40">
-                                        {this.state.error.stack}
-                                    </pre>
-                                </details>
-                            )}
                         </div>
 
                         <Button

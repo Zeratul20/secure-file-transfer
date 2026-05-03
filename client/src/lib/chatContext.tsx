@@ -1,5 +1,5 @@
 import type { Conversation, Profile } from '@/lib/supabaseClient';
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, type ReactNode, useState } from 'react';
 
 interface ChatContextType {
     activeConversationId: string | null;

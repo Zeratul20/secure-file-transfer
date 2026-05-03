@@ -22,7 +22,7 @@ async function deriveKeyFromPassword(password: string, salt: Uint8Array): Promis
     return window.crypto.subtle.deriveKey(
         {
             name: "PBKDF2",
-            salt: salt,
+            salt: new Uint8Array(salt) as BufferSource,
             iterations: ITERATIONS,
             hash: "SHA-256"
         },
