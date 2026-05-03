@@ -1,0 +1,10 @@
+fastapi
+python-multipart
+uvicorn
+pydantic
+supabase
+cryptography
+python-dotenv
+qiskit
+qiskit-aer
+numpy
