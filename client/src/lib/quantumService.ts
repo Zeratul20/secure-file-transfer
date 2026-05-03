@@ -9,6 +9,8 @@ import {
 
 const sessionCache = new Map<string, any>();
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
+
 export const QuantumService = {
     async sendSecureMessage(senderId: string, receiverId: string, text: string) {
         const sessionId = [senderId, receiverId].sort().join('_');
@@ -42,7 +44,7 @@ export const QuantumService = {
 
         const { iv, ciphertext } = await encryptMessage(text, session.pqcSharedSecret);
 
-        const response = await fetch('http://localhost:8000/quantum/send', {
+        const response = await fetch(`${BACKEND_URL}/quantum/send`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
