@@ -24,6 +24,12 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
 
     const messages = useChatMessages(user.id, selectedContact);
 
+    const handleLogout = async () => {
+        localStorage.removeItem(`pqc_private_key_${user.id}`);
+        await supabase.auth.signOut();
+        window.location.reload();
+    };
+
     useEffect(() => {
         const initializeUser = async () => {
             try {
@@ -54,7 +60,7 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
                         }
 
                         console.log("Waiting for database trigger to create user profile...", 10 - retries);
-                        await new Promise(resolve => setTimeout(resolve, 2000));
+                        await new Promise(resolve => setTimeout(resolve, 500));
                     }
                 }
                 if (!storedPrivateKey) {
@@ -62,12 +68,13 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
                     while (retries-- > 0) {
                         storedPrivateKey = localStorage.getItem(`pqc_private_key_${user.id}`);
                         if (storedPrivateKey) break;
-                        await new Promise(resolve => setTimeout(resolve, 1000));
+                        await new Promise(resolve => setTimeout(resolve, 500));
                     }
                 }
 
                 if (!currentUserProfile?.pqc_public_key || !storedPrivateKey) {
                     alert("Error: Quantum Keys are missing or are corrupted!");
+                    await handleLogout();
                     return;
                 }
 
@@ -110,12 +117,6 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
         } finally {
             setIsEncrypting(false);
         }
-    };
-
-    const handleLogout = async () => {
-        localStorage.removeItem(`pqc_private_key_${user.id}`);
-        await supabase.auth.signOut();
-        window.location.reload();
     };
 
     const handleSelectContact = (contact: any) => {
