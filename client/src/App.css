@@ -1,0 +1,45 @@
+/* App-specific styles - most styling is handled by Tailwind and component files */
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+/* Fixed spacer with proper media query handling */
+#spacer {
+	height: 88px;
+	border-top: 1px solid var(--border);
+}
+
+@media (max-width: 1024px) {
+	#spacer {
+		height: 48px;
+	}
+}
+
+/* Ticks styling */
+.ticks {
+	position: relative;
+	width: 100%;
+}
+
+.ticks::before,
+.ticks::after {
+	content: "";
+	position: absolute;
+	top: -4.5px;
+	border: 5px solid transparent;
+}
+
+.ticks::before {
+	left: 0;
+	border-left-color: var(--border);
+}
+
+.ticks::after {
+	right: 0;
+	border-right-color: var(--border);
+}

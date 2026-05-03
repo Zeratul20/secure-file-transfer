@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+@layer base {
+	:root {
+		--background: 0 0% 100%;
+		--foreground: 0 0% 7%;
+
+		--card: 0 0% 100%;
+		--card-foreground: 0 0% 7%;
+
+		--popover: 0 0% 100%;
+		--popover-foreground: 0 0% 7%;
+
+		--primary: 152 69% 49%;
+		--primary-foreground: 0 0% 100%;
+
+		--secondary: 0 0% 95%;
+		--secondary-foreground: 0 0% 7%;
+
+		--muted: 0 0% 95%;
+		--muted-foreground: 0 0% 45%;
+
+		--accent: 0 0% 95%;
+		--accent-foreground: 0 0% 7%;
+
+		--destructive: 0 84% 60%;
+		--destructive-foreground: 0 0% 100%;
+
+		--border: 0 0% 90%;
+		--input: 0 0% 90%;
+		--ring: 152 69% 49%;
+
+		--radius: 0.5rem;
+
+		--chat-bg: 218 14% 90%;
+		--chat-sent: 152 69% 49%;
+		--chat-sent-foreground: 0 0% 100%;
+		--chat-received: 0 0% 100%;
+		--chat-received-foreground: 0 0% 7%;
+		--chat-header: 198 18% 15%;
+		--chat-header-foreground: 0 0% 100%;
+		--chat-sidebar: 0 0% 100%;
+		--chat-input-bg: 0 0% 97%;
+
+		--sidebar-background: 0 0% 100%;
+		--sidebar-foreground: 0 0% 7%;
+		--sidebar-primary: 152 69% 49%;
+		--sidebar-primary-foreground: 0 0% 100%;
+		--sidebar-accent: 0 0% 95%;
+		--sidebar-accent-foreground: 0 0% 7%;
+		--sidebar-border: 0 0% 90%;
+		--sidebar-ring: 152 69% 49%;
+
+		/* Legacy variables used in your custom CSS */
+		--text: #111;
+		--text-h: #000;
+		--bg: #fff;
+		--code-bg: #f4f4f4;
+	}
+
+	.dark {
+		--text: #e2e8f0;
+		--text-h: #f1f5f9;
+		--bg: #0f172a;
+		--border: #1e293b;
+		--code-bg: #1a202c;
+		--accent: #60a5fa;
+		--accent-bg: rgba(96, 165, 250, 0.15);
+		--accent-border: rgba(96, 165, 250, 0.4);
+		--social-bg: rgba(30, 41, 59, 0.6);
+		--shadow:
+			rgba(0, 0, 0, 0.5) 0 10px 15px -3px, rgba(0, 0, 0, 0.3) 0 4px 6px -2px;
+	}
+
+	* {
+		/* Replaced @apply border-border with native CSS */
+		border-color: hsl(var(--border));
+	}
+
+	body {
+		/* Replaced @apply bg-background text-foreground with native CSS */
+		background-color: hsl(var(--background));
+		color: hsl(var(--foreground));
+		margin: 0;
+		transition:
+			background-color 0.3s ease,
+			color 0.3s ease;
+	}
+}
+
+/* Animations */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slideInRight {
+	from {
+		opacity: 0;
+		transform: translateX(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes slideInLeft {
+	from {
+		opacity: 0;
+		transform: translateX(-20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes pulse-soft {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.7;
+	}
+}
+
+.animate-fadeIn {
+	animation: fadeIn 0.3s ease-out;
+}
+.animate-slideInRight {
+	animation: slideInRight 0.4s ease-out;
+}
+.animate-slideInLeft {
+	animation: slideInLeft 0.4s ease-out;
+}
+.animate-pulse-soft {
+	animation: pulse-soft 2s ease-in-out infinite;
+}
+
+/* Custom Styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: 700;
+	letter-spacing: -0.5px;
+	color: var(--text-h);
+	font-family: var(--heading, sans-serif);
+}
+
+h1 {
+	font-size: 56px;
+	letter-spacing: -1.68px;
+	margin: 32px 0;
+}
+
+h2 {
+	font-size: 24px;
+	line-height: 118%;
+	letter-spacing: -0.24px;
+	margin: 0 0 8px;
+}
+
+@media (max-width: 1024px) {
+	h1 {
+		font-size: 36px;
+		margin: 20px 0;
+	}
+	h2 {
+		font-size: 20px;
+	}
+}
+
+a {
+	color: var(--accent);
+	text-decoration: none;
+	transition: opacity 0.2s ease;
+}
+
+a:hover {
+	opacity: 0.8;
+}
+
+input,
+textarea {
+	font-family: var(--sans, sans-serif);
+	letter-spacing: inherit;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+::-webkit-scrollbar-thumb {
+	background: var(--border);
+	border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: var(--accent);
+}
+
+#root {
+	width: 1126px;
+	max-width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	border-inline: 1px solid var(--border);
+	min-height: 100svh;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+}
+
+code {
+	font-family: var(--mono, monospace);
+	display: inline-flex;
+	border-radius: 4px;
+	color: var(--text-h);
+	font-size: 15px;
+	line-height: 135%;
+	padding: 4px 8px;
+	background: var(--code-bg);
+}
+
+.dark #social .button-icon {
+	filter: invert(0.8) brightness(1.2);
+}
