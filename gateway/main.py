@@ -93,6 +93,10 @@ class QuantumMessageRequest(BaseModel):
     group_id: Optional[str] = None
     ciphertext: str
     message_type: str = "text"
+    
+@app.get("/ping")
+def keep_alive():
+    return {"status": "awake", "message": "Render server is alive!"}
 
 @app.post("/quantum/send")
 async def process_quantum_message(msg: QuantumMessageRequest):
